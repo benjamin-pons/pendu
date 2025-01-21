@@ -25,7 +25,7 @@ except IndexError:
 
 mot_masque = ['_'] * len(mot_choisi)
 lettre_trouvees= set()
-vie_joueur=6
+vie_joueur=10
 
 pygame.init()
 
@@ -74,7 +74,7 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN:
-            lettre = event.unicode.lower()
+            lettre = event.unicode.upper()
             if lettre.isalpha(): #verifie si valide
                 if lettre in mot_choisi and lettre not in lettre_trouvees:
                     lettre_trouvees.add(lettre)
