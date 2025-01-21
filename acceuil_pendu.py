@@ -1,6 +1,7 @@
 import pygame
 import sys
-import os
+import subprocess
+import time
 
 pygame.init()
 
@@ -11,44 +12,44 @@ ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
 # Icone
-icon = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\pendu_icon.png")
+icon = pygame.image.load(r"pendu_icon.png")
 pygame.display.set_icon(icon)
 
 # Charger l'image de fond
-image_fond = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\background.png")
+image_fond = pygame.image.load(r"background.png")
 image_fond = pygame.transform.scale(image_fond, (800, 800))
 
 # Police
 font = pygame.font.Font(None, 50)
 
 # Bannière
-banniere = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\logo.png")
+banniere = pygame.image.load(r"logo.png")
 banniere = pygame.transform.scale(banniere, (300, 300)) 
 banniere_rect = banniere.get_rect()
 
 # Bouton Jouer
-bouton_jouer = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\bouton_jouer.png")
+bouton_jouer = pygame.image.load(r"bouton_jouer.png")
 bouton_jouer = pygame.transform.scale(bouton_jouer, (270, 60)) 
 rect_bouton_jouer = bouton_jouer.get_rect(topleft=(265, 400))  # Position du bouton 
 
 # Bouton Settings
-bouton_option = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\settings.png")
+bouton_option = pygame.image.load(r"settings.png")
 bouton_option = pygame.transform.scale(bouton_option, (270, 60)) 
 rect_bouton_option = bouton_option.get_rect(topleft=(265, 500))  
 
 # Bouton Retour
-bouton_retour = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\retour.png")
+bouton_retour = pygame.image.load(r"retour.png")
 bouton_retour = pygame.transform.scale(bouton_retour, (290, 150)) 
 rect_bouton_retour = bouton_retour.get_rect(topleft=(265, 400))
 
 # Bouton Quitter
-bouton_quitter = pygame.image.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\quitter.png")
+bouton_quitter = pygame.image.load(r"quitter.png")
 bouton_quitter = pygame.transform.scale(bouton_quitter, (290, 150)) #longeur,largeur
 rect_bouton_quitter = bouton_quitter.get_rect(topleft=(257,550))
 
 # Son
 pygame.mixer.init()
-pygame.mixer.music.load(r"C:\Users\ponsb\OneDrive\Documents\pendu\musique.mp3")
+pygame.mixer.music.load(r"musique.mp3")
 pygame.mixer.music.play(-1, 0.0)
 
 
@@ -75,8 +76,7 @@ def souris_est_sur_bouton_quitter(pos):
 
 
 def action_bouton_jouer():
-    print("Le bouton 'Jouer' a été cliqué !")
-    os.system(r"C:\Users\ponsb\OneDrive\Documents\pendu\jeu_pendu.py")  # Lancer le fichier jeu.py
+    subprocess.Popen(["python", r"C:\Users\ponsb\OneDrive\Documents\pendu\jeu_pendu.py"])
     pygame.quit()
     sys.exit()
 
@@ -86,7 +86,6 @@ def action_bouton_options():
 
 
 def action_bouton_retour():
-    print("Retour au menu principal")
     global dans_menu_options
     dans_menu_options = False  # Revenir au menu principal
 
@@ -127,7 +126,8 @@ while running:
                     action_bouton_retour()  # Revenir au menu principal
             else:
                 if souris_est_sur_bouton_jouer(event.pos):
-                    action_bouton_jouer()  # Démarrer le jeu
+                    action_bouton_jouer()
+
                 elif souris_est_sur_bouton_options(event.pos):  
                     action_bouton_options()  # Ouvrir le menu des options
                     dans_menu_options = True  # Passer à l'écran des options
