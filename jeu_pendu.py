@@ -37,32 +37,35 @@ ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
 #image 0
-image_pendu = pygame.image.load(r"0.png")
-image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+image_pendu0 = pygame.image.load(r"0.png")
+image_pendu0 = pygame.transform.scale(image_pendu0,(150, 150))
 
 #image 1
-image_pendu = pygame.image.load(r"1.png")
-image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+image_pendu1 = pygame.image.load(r"1.png")
+image_pendu1 = pygame.transform.scale(image_pendu1,(150, 150))
 
 #image 2
-image_pendu = pygame.image.load(r"2.png")
-image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+image_pendu2 = pygame.image.load(r"2.png")
+image_pendu2 = pygame.transform.scale(image_pendu2,(150, 150))
 
 #image 3
-image_pendu = pygame.image.load(r"3.png")
-image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+image_pendu3 = pygame.image.load(r"3.png")
+image_pendu3 = pygame.transform.scale(image_pendu3,(150, 150))
 
 #image 4
-image_pendu = pygame.image.load(r"4.png")
-image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+image_pendu4 = pygame.image.load(r"4.png")
+image_pendu4 = pygame.transform.scale(image_pendu4,(150, 150))
 
 #image 5
-image_pendu = pygame.image.load(r"5.png")
-image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+image_pendu5 = pygame.image.load(r"5.png")
+image_pendu5 = pygame.transform.scale(image_pendu5,(150, 150))
 
 #image 6
-image_pendu = pygame.image.load(r"6.png")
-image_pendu = pygame.transform.scale(image_1,(210, 90))
+image_pendu6 = pygame.image.load(r"6.png")
+image_pendu6 = pygame.transform.scale(image_pendu6,(150, 150))
+
+#Liste des images pendu
+liste_image = [image_pendu0, image_pendu1, image_pendu2, image_pendu3, image_pendu4, image_pendu5, image_pendu6]
 
 # Son
 pygame.mixer.init()
@@ -89,7 +92,7 @@ def afficher():
 
     texte_mot = police.render(" ".join(mot_masque),True,(255, 000, 000))
     ecran.blit(texte_mot,(largeur_ecran // 2 - texte_mot.get_width() // 2 , hauteur_ecran // 3))
-    ecran.blit(images_pendu[6 - vie_joueur], (250, 150)) 
+    ecran.blit(liste_image[6 - vie_joueur], (300, 90)) 
     texte_vie = police.render(f"Vies restantes : {vie_joueur}",True,(255,0,0))
     ecran.blit(texte_vie,(20,20))
     pygame.display.update()
