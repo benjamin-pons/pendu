@@ -27,6 +27,7 @@ banniere = pygame.image.load(r"logo.png")
 banniere = pygame.transform.scale(banniere, (300, 300)) 
 banniere_rect = banniere.get_rect()
 
+
 # Bouton Jouer
 bouton_jouer = pygame.image.load(r"bouton_jouer.png")
 bouton_jouer = pygame.transform.scale(bouton_jouer, (270, 60)) 
@@ -42,10 +43,15 @@ bouton_retour = pygame.image.load(r"retour.png")
 bouton_retour = pygame.transform.scale(bouton_retour, (290, 150)) 
 rect_bouton_retour = bouton_retour.get_rect(topleft=(265, 650))
 
+#bouton score 
+bouton_score = pygame.image.load(r"bouton_score.png")
+bouton_score = pygame.transform.scale(bouton_score,(270,60))
+rect_bouton_score = bouton_score.get_rect(topleft=(265,600))
+
 # Bouton Quitter
 bouton_quitter = pygame.image.load(r"quitter.png")
 bouton_quitter = pygame.transform.scale(bouton_quitter, (290, 150)) #longeur,largeur
-rect_bouton_quitter = bouton_quitter.get_rect(topleft=(257,550))
+rect_bouton_quitter = bouton_quitter.get_rect(topleft=(257,650))
 
 bouton_son_actif = pygame.image.load(r"volum_up.png")
 
@@ -132,6 +138,7 @@ def afficher_menu_principal():
     ecran.blit(bouton_jouer, rect_bouton_jouer.topleft)  
     ecran.blit(bouton_option, rect_bouton_option.topleft)  
     ecran.blit(bouton_quitter, rect_bouton_quitter.topleft)
+    ecran.blit(bouton_score, rect_bouton_score.topleft)
     pygame.display.update()
 
 # Fonction pour afficher le menu des options
