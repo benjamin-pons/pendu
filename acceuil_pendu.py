@@ -12,7 +12,7 @@ ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
 # Icone
-icon = pygame.image.load(r"pendu_icon.png")
+icon = pygame.image.load(r"pendu_icone.png")
 pygame.display.set_icon(icon)
 
 # Charger l'image de fond

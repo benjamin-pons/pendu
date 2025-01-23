@@ -25,7 +25,8 @@ except IndexError:
 
 mot_masque = ['_'] * len(mot_choisi)
 lettre_trouvees= set()
-vie_joueur=10
+vie_joueur=6
+
 
 pygame.init()
 
@@ -35,13 +36,41 @@ hauteur_ecran = 800
 ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))     
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
+#image 0
+image_pendu = pygame.image.load(r"0.png")
+image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+
+#image 1
+image_pendu = pygame.image.load(r"1.png")
+image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+
+#image 2
+image_pendu = pygame.image.load(r"2.png")
+image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+
+#image 3
+image_pendu = pygame.image.load(r"3.png")
+image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+
+#image 4
+image_pendu = pygame.image.load(r"4.png")
+image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+
+#image 5
+image_pendu = pygame.image.load(r"5.png")
+image_pendu = pygame.transform.scale(image_pendu,(210, 90))
+
+#image 6
+image_pendu = pygame.image.load(r"6.png")
+image_pendu = pygame.transform.scale(image_1,(210, 90))
+
 # Son
 pygame.mixer.init()
 pygame.mixer.music.load(r"musique.mp3")
 pygame.mixer.music.play(-1, 0.0)
 
 # Icone
-icon = pygame.image.load(r"pendu_icon.png")
+icon = pygame.image.load(r"pendu_icone.png")
 pygame.display.set_icon(icon)
 pygame.display.update()
 
@@ -60,6 +89,7 @@ def afficher():
 
     texte_mot = police.render(" ".join(mot_masque),True,(255, 000, 000))
     ecran.blit(texte_mot,(largeur_ecran // 2 - texte_mot.get_width() // 2 , hauteur_ecran // 3))
+    ecran.blit(images_pendu[6 - vie_joueur], (250, 150)) 
     texte_vie = police.render(f"Vies restantes : {vie_joueur}",True,(255,0,0))
     ecran.blit(texte_vie,(20,20))
     pygame.display.update()
