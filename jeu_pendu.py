@@ -64,7 +64,7 @@ image_pendu5 = pygame.transform.scale(image_pendu5,(150, 150))
 image_pendu6 = pygame.image.load(r"6.png")
 image_pendu6 = pygame.transform.scale(image_pendu6,(150, 150))
 
-#Liste des images pendu
+# Liste des images pendu
 liste_image = [image_pendu0, image_pendu1, image_pendu2, image_pendu3, image_pendu4, image_pendu5, image_pendu6]
 
 # Son
@@ -83,6 +83,17 @@ image_fond = pygame.transform.scale(image_fond, (800, 800))
 
 #texte
 police = pygame.font.SysFont("monospace" ,40)
+
+# Score
+dict_score = {}
+try :
+    with open(r"scores.txt") as scores :
+        ligne = scores.readline()
+
+except Exception :
+    print(f"Une erreur est survenue lors du chargement du fichier")
+    exit()
+
 
 def souris_est_sur_bouton_retour(pos):
     return rect_bouton_retour.collidepoint(pos)
@@ -135,6 +146,7 @@ while running:
         else:
             texte_gagne = police.render("Tu as Gagné !", True, (255, 0, 0))
             ecran.blit(texte_gagne, (largeur_ecran // 2 - texte_gagne.get_width() // 2, hauteur_ecran // 2))
+
 
         bouton_retour = pygame.image.load(r"retour.png")
         bouton_retour = pygame.transform.scale(bouton_retour, (290, 150))
