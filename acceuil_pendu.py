@@ -43,7 +43,7 @@ bouton_retour = pygame.image.load(r"retour.png")
 bouton_retour = pygame.transform.scale(bouton_retour, (290, 150)) 
 rect_bouton_retour = bouton_retour.get_rect(topleft=(265, 650))
 
-#bouton score 
+# Bouton score 
 bouton_score = pygame.image.load(r"bouton_score.png")
 bouton_score = pygame.transform.scale(bouton_score,(270,60))
 rect_bouton_score = bouton_score.get_rect(topleft=(265,600))
@@ -111,9 +111,12 @@ def souris_est_sur_bouton_quitter(pos):
 def souris_est_sur_bouton_ajouter_mot(pos):
     return rect_bouton_mot.collidepoint(pos)
 
+def souris_est_sur_bouton_score(pos):
+    return rect_bouton_score.collidepoint(pos)
 
 
-#action touche
+
+#Action touche
 def action_bouton_jouer():
     subprocess.Popen(["python", r"jeu_pendu.py"])
     pygame.quit()
@@ -122,6 +125,9 @@ def action_bouton_jouer():
 
 def action_bouton_options():
     afficher_menu_options()
+
+def action_bouton_score():
+    afficher_menu_score()
 
 
 def action_bouton_retour():
@@ -157,6 +163,19 @@ def afficher_menu_options():
 
     pygame.display.update()
 
+# Fonction pour afficher le menu des scores
+def afficher_menu_score():
+    ecran.fill((205, 127, 50))  # Fond bleu clair pour le menu des options
+    font_score = pygame.font.Font(None, 40)
+    titre_score = font_score.render("Score", True, (0, 0, 0))
+    ecran.blit(titre_score, (300, 50))  # Titre du menu
+    ecran.blit(bouton_mot, rect_bouton_mot)
+
+
+    # Affichage du bouton Retour
+    ecran.blit(bouton_retour, rect_bouton_retour.topleft)
+
+    pygame.display.update()
 
 # Fonctionnement de la page
 running = True
@@ -184,7 +203,10 @@ while running:
 
             if souris_est_sur_bouton_quitter(event.pos): 
                 pygame.quit()
-                sys.exit()  # Quitter le programme            
+                sys.exit()  # Quitter le programme
+
+            if souris_est_sur_bouton_score(event.pos):
+                action_bouton_score()
 
     # Afficher soit le menu principal, soit le menu des options
     if dans_menu_options:

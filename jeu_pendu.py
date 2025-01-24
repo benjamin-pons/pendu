@@ -87,12 +87,30 @@ police = pygame.font.SysFont("monospace" ,40)
 # Score
 dict_score = {}
 try :
-    with open(r"scores.txt") as scores :
+    with open(r"./scores.txt") as scores :
         ligne = scores.readline()
 
 except Exception :
     print(f"Une erreur est survenue lors du chargement du fichier")
     exit()
+
+def init_scores() :
+    nom = 0
+    nombre = 1
+
+    dict_scores = {}
+    liste = scores.readlines()
+    longueur = len(liste)
+
+    for i in range(longueur//2) :
+        dict_scores[liste[nom].strip()] = liste[nombre].strip()
+        nom += 2
+        nombre += 2
+    
+    return dict_scores
+
+dict_scores = init_scores()
+
 
 
 def souris_est_sur_bouton_retour(pos):
