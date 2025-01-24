@@ -4,6 +4,7 @@ import random
 import subprocess
 
 mots=[] #liste
+lettre_erreur = [] #liste lettre deja utilisées
 
 try:
     with open(r"mots.txt") as f:
@@ -72,6 +73,7 @@ pygame.mixer.init()
 pygame.mixer.music.load(r"musique.mp3")
 pygame.mixer.music.play(-1, 0.0)
 
+
 # Icone
 icon = pygame.image.load(r"pendu_icone.png")
 pygame.display.set_icon(icon)
@@ -89,13 +91,15 @@ def souris_est_sur_bouton_retour(pos):
 
 def afficher():
     ecran.blit(image_fond, (0, 0))
-
     texte_mot = police.render(" ".join(mot_masque),True,(255, 000, 000))
     ecran.blit(texte_mot,(largeur_ecran // 2 - texte_mot.get_width() // 2 , hauteur_ecran // 3))
     ecran.blit(liste_image[6 - vie_joueur], (300, 90)) 
     texte_vie = police.render(f"Vies restantes : {vie_joueur}",True,(255,0,0))
     ecran.blit(texte_vie,(20,20))
+    texte_liste = police.render(" ".join(lettre_erreur),True,(255, 000, 000))
+    ecran.blit(texte_liste,(largeur_ecran // 5 , hauteur_ecran // 1.2))
     pygame.display.update()
+
 
 
 running = True
@@ -118,6 +122,7 @@ while running:
 
                 elif lettre not in mot_choisi:
                     vie_joueur = vie_joueur -1
+                    lettre_erreur.append(lettre)
 
 
 

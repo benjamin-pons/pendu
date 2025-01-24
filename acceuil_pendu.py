@@ -36,7 +36,7 @@ rect_bouton_jouer = bouton_jouer.get_rect(topleft=(265, 400))  # Position du bou
 # Bouton Settings
 bouton_option = pygame.image.load(r"settings.png")
 bouton_option = pygame.transform.scale(bouton_option, (270, 60)) 
-rect_bouton_option = bouton_option.get_rect(topleft=(265, 500))  
+rect_bouton_options = bouton_option.get_rect(topleft=(265, 500))  
 
 # Bouton Retour
 bouton_retour = pygame.image.load(r"retour.png")
@@ -89,6 +89,7 @@ rect_bouton_mot = bouton_mot.get_rect(topleft=(-15,200))
 
 # Variables pour gérer les écrans
 dans_menu_options = False  
+dans_menu_score = False
 
 #action touche
 def action_bouton_jouer():
@@ -98,29 +99,7 @@ def action_bouton_jouer():
 
 
 def action_bouton_options():
-    afficher_menu_options()
-
-
-def action_bouton_retour():
-    global dans_menu_options
-    dans_menu_options = False  # Revenir au menu principal
-
-def action_bouton_mot():
-    subprocess.Popen(["notepad", r"mots.txt"])
-
-# Fonction pour afficher le menu principal
-def afficher_menu_principal():
-    ecran.blit(image_fond, (0, 0))
-    ecran.blit(banniere, (250, 50))  # Afficher la bannière
-    ecran.blit(bouton_jouer, rect_bouton_jouer.topleft)  
-    ecran.blit(bouton_option, rect_bouton_option.topleft)  
-    ecran.blit(bouton_quitter, rect_bouton_quitter.topleft)
-    ecran.blit(bouton_score, rect_bouton_score.topleft)
-    pygame.display.update()
-
-# Fonction pour afficher le menu des options
-def afficher_menu_options():
-    ecran.fill((205, 127, 50))  # Fond bleu clair pour le menu des options
+    ecran.fill((205, 127, 50))  
     font_option = pygame.font.Font(None, 40)
     titre_options = font_option.render("Options du jeu", True, (0, 0, 0))
     ecran.blit(titre_options, (300, 50))  # Titre du menu
@@ -133,6 +112,39 @@ def afficher_menu_options():
     else bouton_son_inactif, rect_bouton_son_inactif.topleft)
 
     pygame.display.update()
+
+
+def action_bouton_retour():
+    global dans_menu_options
+    global dans_menu_score
+    dans_menu_score = False
+    dans_menu_options = False  # Revenir au menu principal
+
+def action_bouton_mot():
+    subprocess.Popen(["notepad", r"mots.txt"])
+
+def action_bouton_score():
+    global dans_menu_score
+    ecran.fill((205, 127, 50))  
+    font_score = pygame.font.Font(None,50)
+    titre_score = font_score.render("Score",True,(0,0,0))
+    ecran.blit(titre_score,(355,50))
+    #Bouton retour
+    ecran.blit(bouton_retour, rect_bouton_retour.topleft)
+    
+    pygame.display.update()
+
+# Fonction pour afficher le menu principal
+def afficher_menu_principal():
+    ecran.blit(image_fond, (0, 0))
+    ecran.blit(banniere, (250, 50))  # Afficher la bannière
+    ecran.blit(bouton_jouer, rect_bouton_jouer.topleft)  
+    ecran.blit(bouton_option, rect_bouton_options.topleft)  
+    ecran.blit(bouton_quitter, rect_bouton_quitter.topleft)
+    ecran.blit(bouton_score, rect_bouton_score.topleft)
+    pygame.display.update()
+
+
 
 
 # Fonctionnement de la page
@@ -150,24 +162,39 @@ while running:
                 if rect_bouton_mot.collidepoint(event.pos):
                     action_bouton_mot()
                 if rect_bouton_retour.collidepoint(event.pos):  
+                    action_bouton_retour()  # Revenir au menu principal   
+
+            elif dans_menu_score:
+                if rect_bouton_retour.collidepoint(event.pos):  
                     action_bouton_retour()  # Revenir au menu principal
+                   
             else:
-                if souris_est_sur_bouton_jouer(event.pos):
+                if rect_bouton_score.collidepoint(event.pos):
+                    action_bouton_score()
+                    dans_menu_score = True
+
+                if rect_bouton_jouer.collidepoint(event.pos):
                     action_bouton_jouer()
 
-                elif souris_est_sur_bouton_options(event.pos):  
+                elif rect_bouton_options.collidepoint(event.pos):  
                     action_bouton_options()  # Ouvrir le menu des options
                     dans_menu_options = True  # Passer à l'écran des options
+            
 
-                elif souris_est_sur_bouton_quitter(event.pos): 
+                elif rect_bouton_quitter.collidepoint(event.pos) and not dans_menu_score: 
                     pygame.quit()
                     sys.exit()  # Quitter le programme            
 
+
+
     # Afficher soit le menu principal, soit le menu des options
     if dans_menu_options:
-        afficher_menu_options()
+        action_bouton_options()
+    elif dans_menu_score:
+        action_bouton_score()
     else:
         afficher_menu_principal()
+    
 
 pygame.quit()
 sys.exit()
