@@ -90,29 +90,6 @@ rect_bouton_mot = bouton_mot.get_rect(topleft=(-15,200))
 # Variables pour gérer les écrans
 dans_menu_options = False  
 
-
-
-# Vérifier si la souris est sur le bouton "Jouer"
-def souris_est_sur_bouton_volume(pos):
-    return rect_bouton_son_actif
-
-def souris_est_sur_bouton_jouer(pos):
-    return rect_bouton_jouer.collidepoint(pos)
-
-def souris_est_sur_bouton_options(pos):
-    return rect_bouton_option.collidepoint(pos)
-
-def souris_est_sur_bouton_retour(pos):
-    return rect_bouton_retour.collidepoint(pos)
-
-def souris_est_sur_bouton_quitter(pos):
-    return rect_bouton_quitter.collidepoint(pos)
-
-def souris_est_sur_bouton_ajouter_mot(pos):
-    return rect_bouton_mot.collidepoint(pos)
-
-
-
 #action touche
 def action_bouton_jouer():
     subprocess.Popen(["python", r"jeu_pendu.py"])
@@ -170,9 +147,9 @@ while running:
             if dans_menu_options:
                 if rect_bouton_son_actif.collidepoint(event.pos):
                     action_bouton_son()
-                if souris_est_sur_bouton_ajouter_mot(event.pos):
+                if rect_bouton_mot.collidepoint(event.pos):
                     action_bouton_mot()
-                if souris_est_sur_bouton_retour(event.pos):  
+                if rect_bouton_retour.collidepoint(event.pos):  
                     action_bouton_retour()  # Revenir au menu principal
             else:
                 if souris_est_sur_bouton_jouer(event.pos):
@@ -182,9 +159,9 @@ while running:
                     action_bouton_options()  # Ouvrir le menu des options
                     dans_menu_options = True  # Passer à l'écran des options
 
-            if souris_est_sur_bouton_quitter(event.pos): 
-                pygame.quit()
-                sys.exit()  # Quitter le programme            
+                elif souris_est_sur_bouton_quitter(event.pos): 
+                    pygame.quit()
+                    sys.exit()  # Quitter le programme            
 
     # Afficher soit le menu principal, soit le menu des options
     if dans_menu_options:
