@@ -12,48 +12,48 @@ ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
 # Icone
-icon = pygame.image.load(r"pendu_icone.png")
+icon = pygame.image.load(r"images/pendu_icone.png")
 pygame.display.set_icon(icon)
 
 # Charger l'image de fond
-image_fond = pygame.image.load(r"background.png")
+image_fond = pygame.image.load(r"images/background.png")
 image_fond = pygame.transform.scale(image_fond, (800, 800))
 
 # Police
 font = pygame.font.Font(None, 50)
 
 # Bannière
-banniere = pygame.image.load(r"logo.png")
+banniere = pygame.image.load(r"images/logo.png")
 banniere = pygame.transform.scale(banniere, (300, 300)) 
 banniere_rect = banniere.get_rect()
 
 
 # Bouton Jouer
-bouton_jouer = pygame.image.load(r"bouton_jouer.png")
+bouton_jouer = pygame.image.load(r"images/boutons/bouton_jouer.png")
 bouton_jouer = pygame.transform.scale(bouton_jouer, (270, 60)) 
 rect_bouton_jouer = bouton_jouer.get_rect(topleft=(265, 400))  # Position du bouton 
 
 # Bouton Settings
-bouton_option = pygame.image.load(r"settings.png")
+bouton_option = pygame.image.load(r"images/boutons/settings.png")
 bouton_option = pygame.transform.scale(bouton_option, (270, 60)) 
 rect_bouton_options = bouton_option.get_rect(topleft=(265, 500))  
 
 # Bouton Retour
-bouton_retour = pygame.image.load(r"retour.png")
+bouton_retour = pygame.image.load(r"images/boutons/retour.png")
 bouton_retour = pygame.transform.scale(bouton_retour, (290, 150)) 
 rect_bouton_retour = bouton_retour.get_rect(topleft=(265, 650))
 
 #bouton score 
-bouton_score = pygame.image.load(r"bouton_score.png")
+bouton_score = pygame.image.load(r"images/boutons/bouton_score.png")
 bouton_score = pygame.transform.scale(bouton_score,(270,60))
 rect_bouton_score = bouton_score.get_rect(topleft=(265,600))
 
 # Bouton Quitter
-bouton_quitter = pygame.image.load(r"quitter.png")
+bouton_quitter = pygame.image.load(r"images/boutons/quitter.png")
 bouton_quitter = pygame.transform.scale(bouton_quitter, (290, 150)) #longeur,largeur
 rect_bouton_quitter = bouton_quitter.get_rect(topleft=(257,650))
 
-bouton_son_actif = pygame.image.load(r"volum_up.png")
+bouton_son_actif = pygame.image.load(r"images/boutons/volum_up.png")
 
 # Son
 mute = True
@@ -63,27 +63,27 @@ def action_bouton_son ():
     global mute
     if mute == False:
         mute = True
-        bouton_son_inactiF = pygame.image.load(r"volume_down.png")
+        bouton_son_inactiF = pygame.image.load(r"images/boutons/volume_down.png")
         pygame.mixer.music.pause()
     else :
         mute = False
-        bouton_son_actif = pygame.image.load(r"volum_up.png")
+        bouton_son_actif = pygame.image.load(r"images/boutons/volum_up.png")
         pygame.mixer.music.play(-1, 0.0)     	
 pygame.display.flip()
 action_bouton_son()
 
 #Bouton_son_actif
-bouton_son_actif = pygame.image.load(r"volum_up.png")
+bouton_son_actif = pygame.image.load(r"images/boutons/volum_up.png")
 bouton_son_actif = pygame.transform.scale(bouton_son_actif,(290,150))
 rect_bouton_son_actif = bouton_son_actif.get_rect(topleft=(255,100))
 
 #bouton_son_inactif
-bouton_son_inactiF = pygame.image.load(r"volume_down.png")
+bouton_son_inactiF = pygame.image.load(r"images/boutons/volume_down.png")
 bouton_son_inactif = pygame.transform.scale(bouton_son_inactiF,(290,150))
 rect_bouton_son_inactif = bouton_son_inactif.get_rect(topleft=(255,100)) 
 
 #bouton_mot
-bouton_mot = pygame.image.load(r"bouton_ajouter_mot.png")
+bouton_mot = pygame.image.load(r"images/boutons/bouton_ajouter_mot.png")
 bouton_mot = pygame.transform.scale(bouton_mot,(850,470))
 rect_bouton_mot = bouton_mot.get_rect(topleft=(-15,200))
 

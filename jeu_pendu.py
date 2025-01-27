@@ -38,31 +38,31 @@ ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
 #image 0
-image_pendu0 = pygame.image.load(r"0.png")
+image_pendu0 = pygame.image.load(r"images/pendu/0.png")
 image_pendu0 = pygame.transform.scale(image_pendu0,(150, 150))
 
 #image 1
-image_pendu1 = pygame.image.load(r"1.png")
+image_pendu1 = pygame.image.load(r"images/pendu/1.png")
 image_pendu1 = pygame.transform.scale(image_pendu1,(150, 150))
 
 #image 2
-image_pendu2 = pygame.image.load(r"2.png")
+image_pendu2 = pygame.image.load(r"images/pendu/2.png")
 image_pendu2 = pygame.transform.scale(image_pendu2,(150, 150))
 
 #image 3
-image_pendu3 = pygame.image.load(r"3.png")
+image_pendu3 = pygame.image.load(r"images/pendu/3.png")
 image_pendu3 = pygame.transform.scale(image_pendu3,(150, 150))
 
 #image 4
-image_pendu4 = pygame.image.load(r"4.png")
+image_pendu4 = pygame.image.load(r"images/pendu/4.png")
 image_pendu4 = pygame.transform.scale(image_pendu4,(150, 150))
 
 #image 5
-image_pendu5 = pygame.image.load(r"5.png")
+image_pendu5 = pygame.image.load(r"images/pendu/5.png")
 image_pendu5 = pygame.transform.scale(image_pendu5,(150, 150))
 
 #image 6
-image_pendu6 = pygame.image.load(r"6.png")
+image_pendu6 = pygame.image.load(r"images/pendu/6.png")
 image_pendu6 = pygame.transform.scale(image_pendu6,(150, 150))
 
 #Liste des images pendu
@@ -75,12 +75,12 @@ pygame.mixer.music.play(-1, 0.0)
 
 
 # Icone
-icon = pygame.image.load(r"pendu_icone.png")
+icon = pygame.image.load(r"images/pendu_icone.png")
 pygame.display.set_icon(icon)
 pygame.display.update()
 
 # Charger l'image de fond
-image_fond = pygame.image.load(r"background_flou.png")
+image_fond = pygame.image.load(r"images/background_flou.png")
 image_fond = pygame.transform.scale(image_fond, (800, 800))
 
 #texte
@@ -141,7 +141,7 @@ while running:
             texte_gagne = police.render("Tu as Gagné !", True, (255, 0, 0))
             ecran.blit(texte_gagne, (largeur_ecran // 2 - texte_gagne.get_width() // 2, hauteur_ecran // 2))
 
-        bouton_retour = pygame.image.load(r"retour.png")
+        bouton_retour = pygame.image.load(r"images/boutons/retour.png")
         bouton_retour = pygame.transform.scale(bouton_retour, (290, 150))
         rect_bouton_retour = bouton_retour.get_rect(topleft=(265, 500))
         ecran.blit(bouton_retour, rect_bouton_retour.topleft)
