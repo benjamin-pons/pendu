@@ -2,9 +2,12 @@ import pygame
 import os
 import random
 import subprocess
+import json
 
 mots=[] #liste
+lettre_erreur = [] #liste lettre deja utilisées
 
+# Charger la liste de mots possibles
 try:
     with open(r"mots.txt") as f:
         for ligne in f:
@@ -30,6 +33,27 @@ vie_joueur=6
 
 pygame.init()
 
+
+# Score
+dictionnaire_scores = {}
+    # Lecture du fichier scores
+def lire_fichier_scores() :
+    with open("scores.json", "r") as lecture :
+        dictionnaire_scores = json.load(lecture)
+    return dictionnaire_scores
+dictionnaire_scores = lire_fichier_scores()
+
+    # Ecriture dans fichier scores
+def ecrire_fichier_scores(dictionnaire_scores) :
+    with open("scores.json", "w") as sortie :
+        json.dump(dictionnaire_scores, sortie)
+    return
+
+    # Enregistrer nouveau score
+def enregistrer_score(nom) :
+    dictionnaire_scores[nom] = int(vie_joueur*100)
+
+
 # Initialiser la fenêtre
 largeur_ecran = 800
 hauteur_ecran = 800
@@ -37,34 +61,34 @@ ecran = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 pygame.display.set_caption("HANGMAN - Le Pendu")
 
 #image 0
-image_pendu0 = pygame.image.load(r"0.png")
+image_pendu0 = pygame.image.load(r"images/pendu/0.png")
 image_pendu0 = pygame.transform.scale(image_pendu0,(150, 150))
 
 #image 1
-image_pendu1 = pygame.image.load(r"1.png")
+image_pendu1 = pygame.image.load(r"images/pendu/1.png")
 image_pendu1 = pygame.transform.scale(image_pendu1,(150, 150))
 
 #image 2
-image_pendu2 = pygame.image.load(r"2.png")
+image_pendu2 = pygame.image.load(r"images/pendu/2.png")
 image_pendu2 = pygame.transform.scale(image_pendu2,(150, 150))
 
 #image 3
-image_pendu3 = pygame.image.load(r"3.png")
+image_pendu3 = pygame.image.load(r"images/pendu/3.png")
 image_pendu3 = pygame.transform.scale(image_pendu3,(150, 150))
 
 #image 4
-image_pendu4 = pygame.image.load(r"4.png")
+image_pendu4 = pygame.image.load(r"images/pendu/4.png")
 image_pendu4 = pygame.transform.scale(image_pendu4,(150, 150))
 
 #image 5
-image_pendu5 = pygame.image.load(r"5.png")
+image_pendu5 = pygame.image.load(r"images/pendu/5.png")
 image_pendu5 = pygame.transform.scale(image_pendu5,(150, 150))
 
 #image 6
-image_pendu6 = pygame.image.load(r"6.png")
+image_pendu6 = pygame.image.load(r"images/pendu/6.png")
 image_pendu6 = pygame.transform.scale(image_pendu6,(150, 150))
 
-# Liste des images pendu
+#Liste des images pendu
 liste_image = [image_pendu0, image_pendu1, image_pendu2, image_pendu3, image_pendu4, image_pendu5, image_pendu6]
 
 # Son
@@ -72,59 +96,33 @@ pygame.mixer.init()
 pygame.mixer.music.load(r"musique.mp3")
 pygame.mixer.music.play(-1, 0.0)
 
+
 # Icone
-icon = pygame.image.load(r"pendu_icone.png")
+icon = pygame.image.load(r"images/pendu_icone.png")
 pygame.display.set_icon(icon)
 pygame.display.update()
 
 # Charger l'image de fond
-image_fond = pygame.image.load(r"background_flou.png")
+image_fond = pygame.image.load(r"images/background_flou.png")
 image_fond = pygame.transform.scale(image_fond, (800, 800))
 
 #texte
 police = pygame.font.SysFont("monospace" ,40)
-
-# Score
-dict_score = {}
-try :
-    with open(r"./scores.txt") as scores :
-        ligne = scores.readline()
-
-except Exception :
-    print(f"Une erreur est survenue lors du chargement du fichier")
-    exit()
-
-def init_scores() :
-    nom = 0
-    nombre = 1
-
-    dict_scores = {}
-    liste = scores.readlines()
-    longueur = len(liste)
-
-    for i in range(longueur//2) :
-        dict_scores[liste[nom].strip()] = liste[nombre].strip()
-        nom += 2
-        nombre += 2
-    
-    return dict_scores
-
-dict_scores = init_scores()
-
-
 
 def souris_est_sur_bouton_retour(pos):
     return rect_bouton_retour.collidepoint(pos)
 
 def afficher():
     ecran.blit(image_fond, (0, 0))
-
     texte_mot = police.render(" ".join(mot_masque),True,(255, 000, 000))
     ecran.blit(texte_mot,(largeur_ecran // 2 - texte_mot.get_width() // 2 , hauteur_ecran // 3))
     ecran.blit(liste_image[6 - vie_joueur], (300, 90)) 
     texte_vie = police.render(f"Vies restantes : {vie_joueur}",True,(255,0,0))
     ecran.blit(texte_vie,(20,20))
+    texte_liste = police.render(" ".join(lettre_erreur),True,(255, 000, 000))
+    ecran.blit(texte_liste,(largeur_ecran // 5 , hauteur_ecran // 1.2))
     pygame.display.update()
+
 
 
 running = True
@@ -147,6 +145,7 @@ while running:
 
                 elif lettre not in mot_choisi:
                     vie_joueur = vie_joueur -1
+                    lettre_erreur.append(lettre)
 
 
 
@@ -164,9 +163,10 @@ while running:
         else:
             texte_gagne = police.render("Tu as Gagné !", True, (255, 0, 0))
             ecran.blit(texte_gagne, (largeur_ecran // 2 - texte_gagne.get_width() // 2, hauteur_ecran // 2))
+            enregistrer_score()
+            ecrire_fichier_scores(dictionnaire_scores)
 
-
-        bouton_retour = pygame.image.load(r"retour.png")
+        bouton_retour = pygame.image.load(r"images/boutons/retour.png")
         bouton_retour = pygame.transform.scale(bouton_retour, (290, 150))
         rect_bouton_retour = bouton_retour.get_rect(topleft=(265, 500))
         ecran.blit(bouton_retour, rect_bouton_retour.topleft)
