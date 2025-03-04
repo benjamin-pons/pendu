@@ -1,0 +1,148 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+#photobenjamin {
+    display: block;
+    margin: 20px auto;
+    transition: transform 0.4s ease-in-out;
+}
+
+#photobenjamin:hover {
+    animation: benj 2s infinite;
+}
+
+@keyframes benj {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(50px);
+    }
+    50% {
+        transform: translateX(-50px);
+    }
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    background: linear-gradient(135deg, #0077cc, #005fa3);
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+main section {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.projects .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.project {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.project img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #0077cc;
+}
+
+.colorcompetence {
+    background-color: #333;
+    padding: 40px;
+    border-radius: 15px;
+}
+
+.imagecompetence {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.competence {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #444;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    transition: background 0.3s;
+}
+
+.competence:hover {
+    background: #555;
+}
+
+.competence img {
+    width: 60px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.text-compétence {
+    text-align: left;
+    font-size: 1.2rem;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
